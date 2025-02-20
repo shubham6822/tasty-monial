@@ -1,7 +1,19 @@
 {
   "name": "tasty-monial",
-  "version": "1.0.1",
-  "description": "",
+  "version": "1.0.2",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.cjs.js",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "homepage": "https://github.com/shubham6822/tasty-monial#readme",
   "bugs": {
     "url": "https://github.com/shubham6822/tasty-monial/issues"
@@ -11,11 +23,13 @@
     "url": "git+https://github.com/shubham6822/tasty-monial.git"
   },
   "license": "ISC",
-  "author": "",
-  "type": "commonjs",
-  "main": "index.js",
+  "author": "shubham",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
   },
   "dependencies": {
     "@rollup/plugin-commonjs": "^28.0.2",
