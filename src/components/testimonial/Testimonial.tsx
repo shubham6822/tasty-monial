@@ -24,8 +24,11 @@ const Testimonial = () => {
   ];
   return (
     <>
-      {testimonials.map((testimonial) => (
-        <div className="max-w-md p-6 shadow-lg rounded-2xl bg-white text-center">
+      {testimonials.map((testimonial, index) => (
+        <div
+          className="max-w-md p-6 shadow-lg rounded-2xl bg-white text-center"
+          key={index}
+        >
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 rounded-full overflow-hidden">
               <img
