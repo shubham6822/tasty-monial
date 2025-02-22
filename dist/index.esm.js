@@ -1,4 +1,4 @@
-import require$$0 from 'react';
+import require$$0, { useState, useEffect } from 'react';
 
 var jsxRuntime = {exports: {}};
 
@@ -726,27 +726,63 @@ function requireJsxRuntime () {
 var jsxRuntimeExports = requireJsxRuntime();
 
 const Testimonial = () => {
-    const testimonials = [
-        {
-            name: "John Doe",
-            role: "CEO, Acme Corp",
-            image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-            message: "This service is absolutely amazing! Highly recommended.",
-        },
-        {
-            name: "Jane Smith",
-            role: "Marketing Manager, Tech Ltd",
-            image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-            message: "A game-changer for our business. Fantastic experience!",
-        },
-        {
-            name: "Samuel Green",
-            role: "Freelancer",
-            image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-            message: "Superb quality and great support. Five stars!",
-        },
-    ];
-    return (jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: testimonials.map((testimonial) => (jsxRuntimeExports.jsx("div", { className: "max-w-md p-6 shadow-lg rounded-2xl bg-white text-center", children: jsxRuntimeExports.jsxs("div", { className: "flex flex-col items-center", children: [jsxRuntimeExports.jsx("div", { className: "w-16 h-16 rounded-full overflow-hidden", children: jsxRuntimeExports.jsx("img", { src: testimonial.image, alt: testimonial.name, className: "w-full h-full object-cover" }) }), jsxRuntimeExports.jsx("h3", { className: "text-xl font-semibold mt-4", children: testimonial.name }), jsxRuntimeExports.jsx("p", { className: "text-sm text-gray-500", children: testimonial.role }), jsxRuntimeExports.jsx("div", { className: "flex mt-2 text-yellow-400", children: [...Array(5)].map((_, i) => (jsxRuntimeExports.jsx("svg", { xmlns: "http://www.w3.org/2000/svg", className: "h-4 w-4 fill-current", viewBox: "0 0 20 20", fill: "currentColor", children: jsxRuntimeExports.jsx("path", { d: "M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.188 3.674a1 1 0 00.95.69h3.863c.969 0 1.371 1.24.588 1.81l-3.127 2.268a1 1 0 00-.364 1.118l1.188 3.674c.3.921-.755 1.688-1.54 1.118l-3.127-2.268a1 1 0 00-1.176 0l-3.127 2.268c-.784.57-1.838-.197-1.54-1.118l1.188-3.674a1 1 0 00-.364-1.118L2.36 9.101c-.783-.57-.38-1.81.588-1.81h3.863a1 1 0 00.95-.69l1.188-3.674z" }) }, i))) }), jsxRuntimeExports.jsxs("p", { className: "mt-4 text-gray-700 italic", children: ["\"", testimonial.message, "\""] })] }) }))) }));
+    const [testimonials, setTestimonials] = useState([]);
+    // Simulate API call or data fetching
+    useEffect(() => {
+        setTimeout(() => {
+            setTestimonials([
+                {
+                    name: "John Doe",
+                    role: "CEO, Acme Corp",
+                    image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
+                    message: "This service is absolutely amazing! Highly recommended.",
+                },
+                {
+                    name: "Jane Smith",
+                    role: "Marketing Manager, Tech Ltd",
+                    image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
+                    message: "A game-changer for our business. Fantastic experience!",
+                },
+                {
+                    name: "Samuel Green",
+                    role: "Freelancer",
+                    image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
+                    message: "Superb quality and great support. Five stars!",
+                },
+            ]);
+        }, 1000); // Simulated delay
+    }, []);
+    // Handle case when testimonials are still loading or empty
+    if (!testimonials || testimonials.length === 0) {
+        return (jsxRuntimeExports.jsx("p", { style: { textAlign: "center", color: "#6b7280" }, children: "Loading testimonials..." }));
+    }
+    return (jsxRuntimeExports.jsx("div", { style: {
+            display: "flex",
+            flexWrap: "wrap",
+            justifyContent: "center",
+            gap: "24px",
+            padding: "24px",
+        }, children: testimonials.map((testimonial, index) => (jsxRuntimeExports.jsx("div", { style: {
+                maxWidth: "320px",
+                padding: "24px",
+                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
+                borderRadius: "16px",
+                backgroundColor: "#fff",
+                textAlign: "center",
+            }, children: jsxRuntimeExports.jsxs("div", { style: {
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                }, children: [jsxRuntimeExports.jsx("div", { style: {
+                            width: "64px",
+                            height: "64px",
+                            borderRadius: "50%",
+                            overflow: "hidden",
+                        }, children: jsxRuntimeExports.jsx("img", { src: testimonial.image, alt: testimonial.name, style: { width: "100%", height: "100%", objectFit: "cover" } }) }), jsxRuntimeExports.jsx("h3", { style: { fontSize: "20px", fontWeight: "600", marginTop: "16px" }, children: testimonial.name }), jsxRuntimeExports.jsx("p", { style: { fontSize: "14px", color: "#6b7280" }, children: testimonial.role }), jsxRuntimeExports.jsxs("p", { style: {
+                            marginTop: "16px",
+                            color: "#374151",
+                            fontStyle: "italic",
+                        }, children: ["\"", testimonial.message, "\""] })] }) }, index))) }));
 };
 
 export { Testimonial };
