@@ -5,6 +5,7 @@ interface TestimonialData {
   role: string;
   image: string;
   message: string;
+  rating: number;
 }
 
 const Testimonial = () => {
@@ -12,38 +13,21 @@ const Testimonial = () => {
 
   // Simulate API call or data fetching
   useEffect(() => {
-    setTimeout(() => {
-      setTestimonials([
-        {
-          name: "John Doe",
-          role: "CEO, Acme Corp",
-          image:
-            "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-          message: "This service is absolutely amazing! Highly recommended.",
-        },
-        {
-          name: "Jane Smith",
-          role: "Marketing Manager, Tech Ltd",
-          image:
-            "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-          message: "A game-changer for our business. Fantastic experience!",
-        },
-        {
-          name: "Samuel Green",
-          role: "Freelancer",
-          image:
-            "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-          message: "Superb quality and great support. Five stars!",
-        },
-      ]);
-    }, 1000); // Simulated delay
+    const fetchTestimonials = async () => {
+      const res = await fetch(
+        "https://tasty-monial.vercel.app/api/testimonials"
+      );
+      const data = await res.json();
+      setTestimonials(data);
+    };
+    fetchTestimonials();
   }, []);
 
   // Handle case when testimonials are still loading or empty
   if (!testimonials || testimonials.length === 0) {
     return (
       <p style={{ textAlign: "center", color: "#6b7280" }}>
-        Loading testimonials...
+        Loading testimonials..
       </p>
     );
   }
@@ -78,7 +62,7 @@ const Testimonial = () => {
             }}
           >
             {/* Profile Image */}
-            <div
+            {/* <div
               style={{
                 width: "64px",
                 height: "64px",
@@ -91,14 +75,22 @@ const Testimonial = () => {
                 alt={testimonial.name}
                 style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
-            </div>
+            </div> */}
 
             {/* Name & Role */}
-            <h3
-              style={{ fontSize: "20px", fontWeight: "600", marginTop: "16px" }}
-            >
-              {testimonial.name}
-            </h3>
+            <div id="stars" style={{ marginTop: "16px" }}>
+              {[1, 2, 3, 4, 5].map((star) => (
+                <span
+                  key={star}
+                  style={{
+                    color: star <= testimonial.rating ? "gold" : "#d1d5db",
+                    fontSize: "24px",
+                  }}
+                >
+                  ★
+                </span>
+              ))}
+            </div>
             <p style={{ fontSize: "14px", color: "#6b7280" }}>
               {testimonial.role}
             </p>
@@ -107,13 +99,23 @@ const Testimonial = () => {
             <p
               style={{
                 marginTop: "16px",
-                color: "#374151",
+                color: "black",
                 fontStyle: "italic",
               }}
             >
               "{testimonial.message}"
             </p>
           </div>
+          <h3
+            style={{
+              fontSize: "15px",
+              fontWeight: "400",
+              marginTop: "16px",
+              color: "#4b5563",
+            }}
+          >
+            Name : {testimonial.name}
+          </h3>
         </div>
       ))}
     </div>

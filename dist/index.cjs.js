@@ -2,6 +2,38 @@
 
 var require$$0 = require('react');
 
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */
+
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
+
 var jsxRuntime = {exports: {}};
 
 var reactJsxRuntime_production = {};
@@ -731,32 +763,16 @@ const Testimonial = () => {
     const [testimonials, setTestimonials] = require$$0.useState([]);
     // Simulate API call or data fetching
     require$$0.useEffect(() => {
-        setTimeout(() => {
-            setTestimonials([
-                {
-                    name: "John Doe",
-                    role: "CEO, Acme Corp",
-                    image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-                    message: "This service is absolutely amazing! Highly recommended.",
-                },
-                {
-                    name: "Jane Smith",
-                    role: "Marketing Manager, Tech Ltd",
-                    image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-                    message: "A game-changer for our business. Fantastic experience!",
-                },
-                {
-                    name: "Samuel Green",
-                    role: "Freelancer",
-                    image: "https://cdn.toon-crafter.com/user/clx4f6fg50000922l3qdw6hy8/20241213/cm4m2kj1v0001dochqivzvz0a_0.jpg",
-                    message: "Superb quality and great support. Five stars!",
-                },
-            ]);
-        }, 1000); // Simulated delay
+        const fetchTestimonials = () => __awaiter(void 0, void 0, void 0, function* () {
+            const res = yield fetch("https://tasty-monial.vercel.app/api/testimonials");
+            const data = yield res.json();
+            setTestimonials(data);
+        });
+        fetchTestimonials();
     }, []);
     // Handle case when testimonials are still loading or empty
     if (!testimonials || testimonials.length === 0) {
-        return (jsxRuntimeExports.jsx("p", { style: { textAlign: "center", color: "#6b7280" }, children: "Loading testimonials..." }));
+        return (jsxRuntimeExports.jsx("p", { style: { textAlign: "center", color: "#6b7280" }, children: "Loading testimonials.." }));
     }
     return (jsxRuntimeExports.jsx("div", { style: {
             display: "flex",
@@ -764,27 +780,30 @@ const Testimonial = () => {
             justifyContent: "center",
             gap: "24px",
             padding: "24px",
-        }, children: testimonials.map((testimonial, index) => (jsxRuntimeExports.jsx("div", { style: {
+        }, children: testimonials.map((testimonial, index) => (jsxRuntimeExports.jsxs("div", { style: {
                 maxWidth: "320px",
                 padding: "24px",
                 boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
                 borderRadius: "16px",
                 backgroundColor: "#fff",
                 textAlign: "center",
-            }, children: jsxRuntimeExports.jsxs("div", { style: {
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }, children: [jsxRuntimeExports.jsx("div", { style: {
-                            width: "64px",
-                            height: "64px",
-                            borderRadius: "50%",
-                            overflow: "hidden",
-                        }, children: jsxRuntimeExports.jsx("img", { src: testimonial.image, alt: testimonial.name, style: { width: "100%", height: "100%", objectFit: "cover" } }) }), jsxRuntimeExports.jsx("h3", { style: { fontSize: "20px", fontWeight: "600", marginTop: "16px" }, children: testimonial.name }), jsxRuntimeExports.jsx("p", { style: { fontSize: "14px", color: "#6b7280" }, children: testimonial.role }), jsxRuntimeExports.jsxs("p", { style: {
-                            marginTop: "16px",
-                            color: "#374151",
-                            fontStyle: "italic",
-                        }, children: ["\"", testimonial.message, "\""] })] }) }, index))) }));
+            }, children: [jsxRuntimeExports.jsxs("div", { style: {
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }, children: [jsxRuntimeExports.jsx("div", { id: "stars", style: { marginTop: "16px" }, children: [1, 2, 3, 4, 5].map((star) => (jsxRuntimeExports.jsx("span", { style: {
+                                    color: star <= testimonial.rating ? "gold" : "#d1d5db",
+                                    fontSize: "24px",
+                                }, children: "\u2605" }, star))) }), jsxRuntimeExports.jsx("p", { style: { fontSize: "14px", color: "#6b7280" }, children: testimonial.role }), jsxRuntimeExports.jsxs("p", { style: {
+                                marginTop: "16px",
+                                color: "black",
+                                fontStyle: "italic",
+                            }, children: ["\"", testimonial.message, "\""] })] }), jsxRuntimeExports.jsxs("h3", { style: {
+                        fontSize: "15px",
+                        fontWeight: "400",
+                        marginTop: "16px",
+                        color: "#4b5563",
+                    }, children: ["Name : ", testimonial.name] })] }, index))) }));
 };
 
 exports.Testimonial = Testimonial;
