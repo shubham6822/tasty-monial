@@ -2,38 +2,6 @@
 
 var require$$0 = require('react');
 
-/******************************************************************************
-Copyright (c) Microsoft Corporation.
-
-Permission to use, copy, modify, and/or distribute this software for any
-purpose with or without fee is hereby granted.
-
-THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
-AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
-INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
-LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
-OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-***************************************************************************** */
-/* global Reflect, Promise, SuppressedError, Symbol, Iterator */
-
-
-function __awaiter(thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-}
-
-typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
-    var e = new Error(message);
-    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
-};
-
 var jsxRuntime = {exports: {}};
 
 var reactJsxRuntime_production = {};
@@ -885,24 +853,137 @@ const __iconNode = [
 ];
 const Users = createLucideIcon("Users", __iconNode);
 
-const Testimonial = ({ apiKey }) => {
+/******************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+/* global Reflect, Promise, SuppressedError, Symbol, Iterator */
+
+
+function __awaiter(thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+}
+
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
+
+function useFetchTestimonial(apiKey) {
     const [testimonials, setTestimonials] = require$$0.useState([]);
-    // Simulate API call or data fetching
+    const [isLoading, setIsLoading] = require$$0.useState(true);
+    const [error, setError] = require$$0.useState(null);
     require$$0.useEffect(() => {
-        const fetchTestimonials = () => __awaiter(void 0, void 0, void 0, function* () {
-            const res = yield fetch("https://tasty-monial.vercel.app/api/testimonials", {
-                headers: {
-                    Authorization: `Bearer ${apiKey}`,
-                },
-            });
-            const data = yield res.json();
-            setTestimonials(data);
+        const fetchTestimonials = () => __awaiter(this, void 0, void 0, function* () {
+            try {
+                setIsLoading(true);
+                const res = yield fetch("https://tasty-monial.vercel.app/api/testimonials", {
+                    headers: {
+                        Authorization: `Bearer ${apiKey}`,
+                    },
+                });
+                const data = yield res.json();
+                setTestimonials(data);
+                setIsLoading(false);
+            }
+            catch (error) {
+                setError(error instanceof Error
+                    ? error.message
+                    : String(error) || "An unknown error occurred");
+                setIsLoading(false);
+                console.error(error);
+            }
         });
         fetchTestimonials();
-    }, []);
-    // Handle case when testimonials are still loading or empty
-    if (!testimonials || testimonials.length === 0) {
-        return (jsxRuntimeExports.jsx("p", { style: { textAlign: "center", color: "#6b7280" }, children: "Loading testimonials.." }));
+    }, [apiKey]);
+    return { testimonials, isLoading, error };
+}
+
+function LoadingSkeleton() {
+    return (jsxRuntimeExports.jsxs("div", { style: {
+            display: "grid",
+            gap: "1.5rem",
+            padding: "5rem",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "100vw",
+            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
+        }, children: [Array.from({ length: 8 }).map((_, index) => (jsxRuntimeExports.jsxs("div", { style: {
+                    display: "flex",
+                    flexDirection: "column",
+                    border: "1px solid #e5e7eb",
+                    gap: "1rem",
+                    background: "#ffffff",
+                    padding: "1.5rem",
+                    borderRadius: "0.5rem",
+                    boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+                    width: "350px",
+                    height: "300px",
+                    animation: "pulse 1.5s infinite",
+                }, children: [jsxRuntimeExports.jsx("div", { style: {
+                            height: "20px",
+                            background: "#f3f4f6",
+                            borderRadius: "4px",
+                        } }), jsxRuntimeExports.jsx("div", { style: {
+                            height: "16px",
+                            background: "#f3f4f6",
+                            borderRadius: "4px",
+                            width: "80%",
+                        } }), jsxRuntimeExports.jsx("div", { style: {
+                            height: "16px",
+                            background: "#f3f4f6",
+                            borderRadius: "4px",
+                            width: "60%",
+                        } }), jsxRuntimeExports.jsxs("div", { style: {
+                            display: "flex",
+                            alignItems: "center",
+                            marginTop: "auto",
+                            gap: "0.75rem",
+                        }, children: [jsxRuntimeExports.jsx("div", { style: {
+                                    width: "40px",
+                                    height: "40px",
+                                    background: "#f3f4f6",
+                                    borderRadius: "50%",
+                                } }), jsxRuntimeExports.jsxs("div", { children: [jsxRuntimeExports.jsx("div", { style: {
+                                            height: "16px",
+                                            background: "#f3f4f6",
+                                            borderRadius: "4px",
+                                            width: "120px",
+                                        } }), jsxRuntimeExports.jsx("div", { style: {
+                                            height: "14px",
+                                            background: "#f3f4f6",
+                                            borderRadius: "4px",
+                                            width: "80px",
+                                            marginTop: "0.25rem",
+                                        } })] })] })] }, index))), jsxRuntimeExports.jsx("style", { children: `
+              @keyframes pulse {
+                0% { background-color: #f3f4f6; }
+                50% { background-color: #e5e7eb; }
+                100% { background-color: #f3f4f6; }
+              }
+            ` })] }));
+}
+
+const Testimonial = ({ apiKey }) => {
+    const { testimonials, isLoading} = useFetchTestimonial(apiKey);
+    if (!testimonials || testimonials.length === 0 || isLoading) {
+        return jsxRuntimeExports.jsx(LoadingSkeleton, {});
     }
     return (jsxRuntimeExports.jsx("div", { style: {
             display: "grid",
@@ -921,6 +1002,7 @@ const Testimonial = ({ apiKey }) => {
                 borderRadius: "0.5rem",
                 boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
                 width: "350px",
+                height: "300px",
             }, children: [jsxRuntimeExports.jsxs("div", { style: { display: "flex", color: "#fbbf24", marginBottom: "1rem" }, children: [jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } })] }), jsxRuntimeExports.jsx("p", { style: {
                         fontStyle: "italic",
                         color: "#6b7280",

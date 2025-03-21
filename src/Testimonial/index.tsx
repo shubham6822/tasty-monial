@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 import { Star, Users } from "lucide-react";
+import { useFetchTestimonial } from "../hooks/useFetchTestimonial";
+import LoadingSkeleton from "./components/LoadingSkeleton";
 
-interface TestimonialData {
+export interface TestimonialData {
   name: string;
   role: string;
   image: string;
@@ -14,32 +16,9 @@ interface TestimonialProps {
 }
 
 const Testimonial = ({ apiKey }: TestimonialProps) => {
-  const [testimonials, setTestimonials] = useState<TestimonialData[]>([]);
-
-  // Simulate API call or data fetching
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      const res = await fetch(
-        "https://tasty-monial.vercel.app/api/testimonials",
-        {
-          headers: {
-            Authorization: `Bearer ${apiKey}`,
-          },
-        }
-      );
-      const data = await res.json();
-      setTestimonials(data);
-    };
-    fetchTestimonials();
-  }, []);
-
-  // Handle case when testimonials are still loading or empty
-  if (!testimonials || testimonials.length === 0) {
-    return (
-      <p style={{ textAlign: "center", color: "#6b7280" }}>
-        Loading testimonials..
-      </p>
-    );
+  const { testimonials, isLoading, error } = useFetchTestimonial(apiKey);
+  if (!testimonials || testimonials.length === 0 || isLoading) {
+    return <LoadingSkeleton />;
   }
 
   return (
@@ -66,6 +45,7 @@ const Testimonial = ({ apiKey }: TestimonialProps) => {
             borderRadius: "0.5rem",
             boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
             width: "350px",
+            height: "300px",
           }}
         >
           <div
