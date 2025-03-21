@@ -9,14 +9,23 @@ interface TestimonialData {
   rating: number;
 }
 
-const Testimonial = () => {
+interface TestimonialProps {
+  apiKey: string;
+}
+
+const Testimonial = ({ apiKey }: TestimonialProps) => {
   const [testimonials, setTestimonials] = useState<TestimonialData[]>([]);
 
   // Simulate API call or data fetching
   useEffect(() => {
     const fetchTestimonials = async () => {
       const res = await fetch(
-        "https://tasty-monial.vercel.app/api/testimonials"
+        "https://tasty-monial.vercel.app/api/testimonials",
+        {
+          headers: {
+            Authorization: `Bearer ${apiKey}`,
+          },
+        }
       );
       const data = await res.json();
       setTestimonials(data);

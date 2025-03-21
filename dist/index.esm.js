@@ -883,12 +883,16 @@ const __iconNode = [
 ];
 const Users = createLucideIcon("Users", __iconNode);
 
-const Testimonial = () => {
+const Testimonial = ({ apiKey }) => {
     const [testimonials, setTestimonials] = useState([]);
     // Simulate API call or data fetching
     useEffect(() => {
         const fetchTestimonials = () => __awaiter(void 0, void 0, void 0, function* () {
-            const res = yield fetch("https://tasty-monial.vercel.app/api/testimonials");
+            const res = yield fetch("https://tasty-monial.vercel.app/api/testimonials", {
+                headers: {
+                    Authorization: `Bearer ${apiKey}`,
+                },
+            });
             const data = yield res.json();
             setTestimonials(data);
         });
