@@ -759,6 +759,132 @@ function requireJsxRuntime () {
 
 var jsxRuntimeExports = requireJsxRuntime();
 
+/**
+ * @license lucide-react v0.483.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+const toKebabCase = (string) => string.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
+const mergeClasses = (...classes) => classes.filter((className, index, array) => {
+  return Boolean(className) && className.trim() !== "" && array.indexOf(className) === index;
+}).join(" ").trim();
+
+/**
+ * @license lucide-react v0.483.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+var defaultAttributes = {
+  xmlns: "http://www.w3.org/2000/svg",
+  width: 24,
+  height: 24,
+  viewBox: "0 0 24 24",
+  fill: "none",
+  stroke: "currentColor",
+  strokeWidth: 2,
+  strokeLinecap: "round",
+  strokeLinejoin: "round"
+};
+
+/**
+ * @license lucide-react v0.483.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const Icon = require$$0.forwardRef(
+  ({
+    color = "currentColor",
+    size = 24,
+    strokeWidth = 2,
+    absoluteStrokeWidth,
+    className = "",
+    children,
+    iconNode,
+    ...rest
+  }, ref) => {
+    return require$$0.createElement(
+      "svg",
+      {
+        ref,
+        ...defaultAttributes,
+        width: size,
+        height: size,
+        stroke: color,
+        strokeWidth: absoluteStrokeWidth ? Number(strokeWidth) * 24 / Number(size) : strokeWidth,
+        className: mergeClasses("lucide", className),
+        ...rest
+      },
+      [
+        ...iconNode.map(([tag, attrs]) => require$$0.createElement(tag, attrs)),
+        ...Array.isArray(children) ? children : [children]
+      ]
+    );
+  }
+);
+
+/**
+ * @license lucide-react v0.483.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const createLucideIcon = (iconName, iconNode) => {
+  const Component = require$$0.forwardRef(
+    ({ className, ...props }, ref) => require$$0.createElement(Icon, {
+      ref,
+      iconNode,
+      className: mergeClasses(`lucide-${toKebabCase(iconName)}`, className),
+      ...props
+    })
+  );
+  Component.displayName = `${iconName}`;
+  return Component;
+};
+
+/**
+ * @license lucide-react v0.483.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode$1 = [
+  [
+    "path",
+    {
+      d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
+      key: "r04s7s"
+    }
+  ]
+];
+const Star = createLucideIcon("Star", __iconNode$1);
+
+/**
+ * @license lucide-react v0.483.0 - ISC
+ *
+ * This source code is licensed under the ISC license.
+ * See the LICENSE file in the root directory of this source tree.
+ */
+
+
+const __iconNode = [
+  ["path", { d: "M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2", key: "1yyitq" }],
+  ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }],
+  ["path", { d: "M22 21v-2a4 4 0 0 0-3-3.87", key: "kshegd" }],
+  ["path", { d: "M16 3.13a4 4 0 0 1 0 7.75", key: "1da9ce" }]
+];
+const Users = createLucideIcon("Users", __iconNode);
+
 const Testimonial = () => {
     const [testimonials, setTestimonials] = require$$0.useState([]);
     // Simulate API call or data fetching
@@ -775,35 +901,35 @@ const Testimonial = () => {
         return (jsxRuntimeExports.jsx("p", { style: { textAlign: "center", color: "#6b7280" }, children: "Loading testimonials.." }));
     }
     return (jsxRuntimeExports.jsx("div", { style: {
-            display: "flex",
-            flexWrap: "wrap",
+            display: "grid",
+            gap: "3rem",
+            padding: "5rem",
             justifyContent: "center",
-            gap: "24px",
-            padding: "24px",
+            alignItems: "center",
+            width: "100vw",
+            gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
         }, children: testimonials.map((testimonial, index) => (jsxRuntimeExports.jsxs("div", { style: {
-                maxWidth: "320px",
-                padding: "24px",
-                boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-                borderRadius: "16px",
-                backgroundColor: "#fff",
-                textAlign: "center",
-            }, children: [jsxRuntimeExports.jsxs("div", { style: {
-                        display: "flex",
-                        flexDirection: "column",
-                        alignItems: "center",
-                    }, children: [jsxRuntimeExports.jsx("div", { id: "stars", style: { marginTop: "16px" }, children: [1, 2, 3, 4, 5].map((star) => (jsxRuntimeExports.jsx("span", { style: {
-                                    color: star <= testimonial.rating ? "gold" : "#d1d5db",
-                                    fontSize: "24px",
-                                }, children: "\u2605" }, star))) }), jsxRuntimeExports.jsx("p", { style: { fontSize: "14px", color: "#6b7280" }, children: testimonial.role }), jsxRuntimeExports.jsxs("p", { style: {
-                                marginTop: "16px",
-                                color: "black",
-                                fontStyle: "italic",
-                            }, children: ["\"", testimonial.message, "\""] })] }), jsxRuntimeExports.jsxs("h3", { style: {
-                        fontSize: "15px",
-                        fontWeight: "400",
-                        marginTop: "16px",
-                        color: "#4b5563",
-                    }, children: ["Name : ", testimonial.name] })] }, index))) }));
+                display: "flex",
+                flexDirection: "column",
+                border: "1px solid #e5e7eb",
+                background: "#ffffff",
+                padding: "1.5rem",
+                borderRadius: "0.5rem",
+                boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+                width: "350px",
+            }, children: [jsxRuntimeExports.jsxs("div", { style: { display: "flex", color: "#fbbf24", marginBottom: "1rem" }, children: [jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } })] }), jsxRuntimeExports.jsx("p", { style: {
+                        fontStyle: "italic",
+                        color: "#6b7280",
+                        marginBottom: "1rem",
+                    }, children: "\"TastyMonial has completely transformed how we collect and showcase client feedback. The setup was incredibly easy, and our conversion rates have improved by 30%!\"" }), jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", marginTop: "auto" }, children: [jsxRuntimeExports.jsx("div", { style: {
+                                width: "40px",
+                                height: "40px",
+                                background: "rgba(59, 130, 246, 0.1)",
+                                borderRadius: "50%",
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                            }, children: jsxRuntimeExports.jsx(Users, { style: { color: "blue" } }) }), jsxRuntimeExports.jsxs("div", { style: { marginLeft: "0.75rem" }, children: [jsxRuntimeExports.jsx("p", { style: { fontWeight: 500, color: "black" }, children: "Sarah Johnson" }), jsxRuntimeExports.jsx("p", { style: { fontSize: "0.875rem", color: "#6b7280" }, children: "CTO, DevStack" })] })] })] }, index))) }));
 };
 
 exports.Testimonial = Testimonial;

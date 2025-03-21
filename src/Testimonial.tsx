@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Star, Users } from "lucide-react";
 
 interface TestimonialData {
   name: string;
@@ -35,87 +36,72 @@ const Testimonial = () => {
   return (
     <div
       style={{
-        display: "flex",
-        flexWrap: "wrap",
+        display: "grid",
+        gap: "3rem",
+        padding: "5rem",
         justifyContent: "center",
-        gap: "24px",
-        padding: "24px",
+        alignItems: "center",
+        width: "100vw",
+        gridTemplateColumns: "repeat(auto-fit, minmax(350px, 1fr))",
       }}
     >
       {testimonials.map((testimonial, index) => (
         <div
           key={index}
           style={{
-            maxWidth: "320px",
-            padding: "24px",
-            boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
-            borderRadius: "16px",
-            backgroundColor: "#fff",
-            textAlign: "center",
+            display: "flex",
+            flexDirection: "column",
+            border: "1px solid #e5e7eb",
+            background: "#ffffff",
+            padding: "1.5rem",
+            borderRadius: "0.5rem",
+            boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
+            width: "350px",
           }}
         >
           <div
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-            }}
+            style={{ display: "flex", color: "#fbbf24", marginBottom: "1rem" }}
           >
-            {/* Profile Image */}
-            {/* <div
-              style={{
-                width: "64px",
-                height: "64px",
-                borderRadius: "50%",
-                overflow: "hidden",
-              }}
-            >
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            </div> */}
-
-            {/* Name & Role */}
-            <div id="stars" style={{ marginTop: "16px" }}>
-              {[1, 2, 3, 4, 5].map((star) => (
-                <span
-                  key={star}
-                  style={{
-                    color: star <= testimonial.rating ? "gold" : "#d1d5db",
-                    fontSize: "24px",
-                  }}
-                >
-                  ★
-                </span>
-              ))}
-            </div>
-            <p style={{ fontSize: "14px", color: "#6b7280" }}>
-              {testimonial.role}
-            </p>
-
-            {/* Testimonial Message */}
-            <p
-              style={{
-                marginTop: "16px",
-                color: "black",
-                fontStyle: "italic",
-              }}
-            >
-              "{testimonial.message}"
-            </p>
+            <Star style={{ fill: "#fbbf24" }} />
+            <Star style={{ fill: "#fbbf24" }} />
+            <Star style={{ fill: "#fbbf24" }} />
+            <Star style={{ fill: "#fbbf24" }} />
+            <Star style={{ fill: "#fbbf24" }} />
           </div>
-          <h3
+          <p
             style={{
-              fontSize: "15px",
-              fontWeight: "400",
-              marginTop: "16px",
-              color: "#4b5563",
+              fontStyle: "italic",
+              color: "#6b7280",
+              marginBottom: "1rem",
             }}
           >
-            Name : {testimonial.name}
-          </h3>
+            &quot;TastyMonial has completely transformed how we collect and
+            showcase client feedback. The setup was incredibly easy, and our
+            conversion rates have improved by 30%!&quot;
+          </p>
+          <div
+            style={{ display: "flex", alignItems: "center", marginTop: "auto" }}
+          >
+            <div
+              style={{
+                width: "40px",
+                height: "40px",
+                background: "rgba(59, 130, 246, 0.1)",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Users style={{ color: "blue" }} />
+            </div>
+            <div style={{ marginLeft: "0.75rem" }}>
+              <p style={{ fontWeight: 500, color: "black" }}>Sarah Johnson</p>
+              <p style={{ fontSize: "0.875rem", color: "#6b7280" }}>
+                CTO, DevStack
+              </p>
+            </div>
+          </div>
         </div>
       ))}
     </div>
