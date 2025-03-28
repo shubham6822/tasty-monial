@@ -4,11 +4,21 @@ import { useFetchTestimonial } from "../hooks/useFetchTestimonial";
 import LoadingSkeleton from "./components/LoadingSkeleton";
 
 export interface TestimonialData {
+  _id: string;
   name: string;
-  role: string;
-  image: string;
   message: string;
+  email: string;
   rating: number;
+  date: string;
+  projectId: string;
+  title: string;
+  company: string;
+  socialLinks: string[];
+  image: string;
+  video: string;
+  profession: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 interface TestimonialProps {
@@ -49,13 +59,22 @@ const Testimonial = ({ apiKey }: TestimonialProps) => {
           }}
         >
           <div
-            style={{ display: "flex", color: "#fbbf24", marginBottom: "1rem" }}
+            style={{
+              display: "flex",
+              marginBottom: "1rem",
+              justifyContent: "space-between",
+            }}
           >
-            <Star style={{ fill: "#fbbf24" }} />
-            <Star style={{ fill: "#fbbf24" }} />
-            <Star style={{ fill: "#fbbf24" }} />
-            <Star style={{ fill: "#fbbf24" }} />
-            <Star style={{ fill: "#fbbf24" }} />
+            <div style={{ display: "flex", color: "#fbbf24" }}>
+              <Star style={{ fill: "#fbbf24" }} />
+              <Star style={{ fill: "#fbbf24" }} />
+              <Star style={{ fill: "#fbbf24" }} />
+              <Star style={{ fill: "#fbbf24" }} />
+              <Star style={{ fill: "#fbbf24" }} />
+            </div>
+            <p style={{ fontWeight: 300, color: "black" }}>
+              {testimonial.company}
+            </p>
           </div>
           <p
             style={{
@@ -64,9 +83,7 @@ const Testimonial = ({ apiKey }: TestimonialProps) => {
               marginBottom: "1rem",
             }}
           >
-            &quot;TastyMonial has completely transformed how we collect and
-            showcase client feedback. The setup was incredibly easy, and our
-            conversion rates have improved by 30%!&quot;
+            {testimonial.message}
           </p>
           <div
             style={{ display: "flex", alignItems: "center", marginTop: "auto" }}
@@ -85,9 +102,17 @@ const Testimonial = ({ apiKey }: TestimonialProps) => {
               <Users style={{ color: "blue" }} />
             </div>
             <div style={{ marginLeft: "0.75rem" }}>
-              <p style={{ fontWeight: 500, color: "black" }}>Sarah Johnson</p>
-              <p style={{ fontSize: "0.875rem", color: "#6b7280" }}>
-                CTO, DevStack
+              <p style={{ fontWeight: 500, color: "black" }}>
+                {testimonial.name}
+              </p>
+              <p
+                style={{
+                  fontSize: "0.875rem",
+                  color: "black",
+                  fontWeight: 300,
+                }}
+              >
+                {testimonial.title} | {testimonial.profession}
               </p>
             </div>
           </div>

@@ -889,29 +889,29 @@ function useFetchTestimonial(apiKey) {
     const [testimonials, setTestimonials] = require$$0.useState([]);
     const [isLoading, setIsLoading] = require$$0.useState(true);
     const [error, setError] = require$$0.useState(null);
+    const fetchTestimonials = () => __awaiter(this, void 0, void 0, function* () {
+        try {
+            setIsLoading(true);
+            const res = yield fetch("https://tasty-monial.vercel.app/api/testimonials", {
+                headers: {
+                    "secret-key": apiKey,
+                },
+            });
+            const data = yield res.json();
+            setTestimonials(data);
+            setIsLoading(false);
+        }
+        catch (error) {
+            setError(error instanceof Error
+                ? error.message
+                : String(error) || "An unknown error occurred");
+            setIsLoading(false);
+            console.error(error);
+        }
+    });
     require$$0.useEffect(() => {
-        const fetchTestimonials = () => __awaiter(this, void 0, void 0, function* () {
-            try {
-                setIsLoading(true);
-                const res = yield fetch("https://tasty-monial.vercel.app/api/testimonials", {
-                    headers: {
-                        Authorization: `Bearer ${apiKey}`,
-                    },
-                });
-                const data = yield res.json();
-                setTestimonials(data);
-                setIsLoading(false);
-            }
-            catch (error) {
-                setError(error instanceof Error
-                    ? error.message
-                    : String(error) || "An unknown error occurred");
-                setIsLoading(false);
-                console.error(error);
-            }
-        });
         fetchTestimonials();
-    }, [apiKey]);
+    }, []);
     return { testimonials, isLoading, error };
 }
 
@@ -1003,11 +1003,15 @@ const Testimonial = ({ apiKey }) => {
                 boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
                 width: "350px",
                 height: "300px",
-            }, children: [jsxRuntimeExports.jsxs("div", { style: { display: "flex", color: "#fbbf24", marginBottom: "1rem" }, children: [jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } })] }), jsxRuntimeExports.jsx("p", { style: {
+            }, children: [jsxRuntimeExports.jsxs("div", { style: {
+                        display: "flex",
+                        marginBottom: "1rem",
+                        justifyContent: "space-between",
+                    }, children: [jsxRuntimeExports.jsxs("div", { style: { display: "flex", color: "#fbbf24" }, children: [jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } }), jsxRuntimeExports.jsx(Star, { style: { fill: "#fbbf24" } })] }), jsxRuntimeExports.jsx("p", { style: { fontWeight: 300, color: "black" }, children: testimonial.company })] }), jsxRuntimeExports.jsx("p", { style: {
                         fontStyle: "italic",
                         color: "#6b7280",
                         marginBottom: "1rem",
-                    }, children: "\"TastyMonial has completely transformed how we collect and showcase client feedback. The setup was incredibly easy, and our conversion rates have improved by 30%!\"" }), jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", marginTop: "auto" }, children: [jsxRuntimeExports.jsx("div", { style: {
+                    }, children: testimonial.message }), jsxRuntimeExports.jsxs("div", { style: { display: "flex", alignItems: "center", marginTop: "auto" }, children: [jsxRuntimeExports.jsx("div", { style: {
                                 width: "40px",
                                 height: "40px",
                                 background: "rgba(59, 130, 246, 0.1)",
@@ -1015,7 +1019,11 @@ const Testimonial = ({ apiKey }) => {
                                 display: "flex",
                                 alignItems: "center",
                                 justifyContent: "center",
-                            }, children: jsxRuntimeExports.jsx(Users, { style: { color: "blue" } }) }), jsxRuntimeExports.jsxs("div", { style: { marginLeft: "0.75rem" }, children: [jsxRuntimeExports.jsx("p", { style: { fontWeight: 500, color: "black" }, children: "Sarah Johnson" }), jsxRuntimeExports.jsx("p", { style: { fontSize: "0.875rem", color: "#6b7280" }, children: "CTO, DevStack" })] })] })] }, index))) }));
+                            }, children: jsxRuntimeExports.jsx(Users, { style: { color: "blue" } }) }), jsxRuntimeExports.jsxs("div", { style: { marginLeft: "0.75rem" }, children: [jsxRuntimeExports.jsx("p", { style: { fontWeight: 500, color: "black" }, children: testimonial.name }), jsxRuntimeExports.jsxs("p", { style: {
+                                        fontSize: "0.875rem",
+                                        color: "black",
+                                        fontWeight: 300,
+                                    }, children: [testimonial.title, " | ", testimonial.profession] })] })] })] }, index))) }));
 };
 
 exports.Testimonial = Testimonial;
