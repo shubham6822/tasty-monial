@@ -29,7 +29,7 @@ Import the `Testimonial` component and use it in your React project:
 
 ```jsx
 import React from 'react';
-import Testimonial from 'testimonial-component-library';
+import Testimonial from 'tasty-monial';
 
 const App = () => {
   return (
